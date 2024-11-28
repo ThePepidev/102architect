@@ -115,7 +115,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix.translation(i, j)
             if (len(args) > (ac + 4)):
                 recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 3)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -132,7 +132,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 4)):
                 recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 3)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -155,7 +155,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix.scalar(m, n)
             if (len(args) > (ac + 4)):
                 recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 3)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -172,7 +172,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 4)):
                 recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 3)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -194,7 +194,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix.rotation(O)
             if (len(args) > (ac + 3)):
                 recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 2)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -210,7 +210,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 3)):
                 recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 2)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -232,7 +232,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix.reflection(O)
             if (len(args) > (ac + 3)):
                 recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 2)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
@@ -248,7 +248,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 3)):
                 recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
-            elif (len(args) > (ac + 2)):
+            elif (len(args) != (ac + 2)):
                 return 84
             else:
                 vector_result = vector_init.multiply(matrix_result)
