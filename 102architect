@@ -81,6 +81,14 @@ class vector:
         return vector(x, y, z)
 
 def print_vector(vector_init, vector_result):
+    if round(vector_init.x, 2) == -0.00:
+        vector_init.x = 0.00
+    if round(vector_init.y, 2) == -0.00:
+        vector_init.y = 0.00
+    if round(vector_result.x, 2) == -0.00:
+        vector_result.x = 0.00
+    if round(vector_result.y, 2) == -0.00:
+        vector_result.y = 0.00
     print(f"({vector_init.x:.2f}, {vector_init.y:.2f}) => ({vector_result.x:.2f}, {vector_result.y:.2f})")
 
 def recursive(args, ac, vector_init, vector_result, matrix_result):
