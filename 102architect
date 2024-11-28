@@ -73,7 +73,7 @@ def print_vector(vector_init, vector_result):
     print(f"({vector_init.x:.2f}, {vector_init.y:.2f}) => ({vector_result.x:.2f}, {vector_result.y:.2f})")
 
 def recursive(args, ac, vector_init, vector_result, matrix_result):
-    if args[ac] == "-t" :
+    if args[ac] == "-t" and len(args) >= (ac + 3):
         if (ac == 2):
             try:
                 x0 = float(args[0])
@@ -81,7 +81,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 i = float(args[3])
                 j = float(args[4])
             except ValueError:
-                return 84
+                sys.exit(84)
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.translation(i, j)
             if (len(args) > (ac + 4)):
@@ -96,7 +96,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 i = float(args[ac + 1])
                 j = float(args[ac + 2])
             except ValueError:
-                return 84
+                sys.exit(84)
             matrix_temp = matrix.translation(i, j)
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 4)):
@@ -106,7 +106,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 matrix_result.print_matrix()
                 print_vector(vector_init, vector_result)
                 sys.exit(0)
-    elif args[ac] == "-z" :
+    elif args[ac] == "-z" and len(args) >= (ac + 3):
         if (ac == 2):
             try:
                 x0 = float(args[0])
@@ -114,7 +114,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 m = float(args[3])
                 n = float(args[4])
             except ValueError:
-                return 84
+                sys.exit(84)
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.scalar(m, n)
             if (len(args) > (ac + 4)):
@@ -129,7 +129,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 m = float(args[ac + 1])
                 n = float(args[ac + 2])
             except ValueError:
-                return 84
+                sys.exit(84)
             matrix_temp = matrix.scalar(m, n)
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 4)):
@@ -139,14 +139,14 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 matrix_result.print_matrix()
                 print_vector(vector_init, vector_result)
                 sys.exit(0)
-    elif args[ac] == "-r" :
+    elif args[ac] == "-r" and len(args) >= (ac + 2):
         if (ac == 2):
             try:
                 x0 = float(args[0])
                 y0 = float(args[1])
                 O = float(args[3])
             except ValueError:
-                return 84
+                sys.exit(84)
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.rotation(O)
             if (len(args) > (ac + 3)):
@@ -160,7 +160,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             try:
                 O = float(args[ac + 1])
             except ValueError:
-                return 84
+                sys.exit(84)
             matrix_temp = matrix.rotation(O)
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 3)):
@@ -170,14 +170,14 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 matrix_result.print_matrix()
                 print_vector(vector_init, vector_result)
                 sys.exit(0)
-    elif args[ac] == "-s" :
+    elif args[ac] == "-s" and len(args) >= (ac + 2):
         if (ac == 2):
             try:
                 x0 = float(args[0])
                 y0 = float(args[1])
                 O = float(args[3])
             except ValueError:
-                return 84
+                sys.exit(84)
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.reflection(O)
             if (len(args) > (ac + 3)):
@@ -191,7 +191,7 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
             try:
                 O = float(args[ac + 1])
             except ValueError:
-                return 84
+                sys.exit(84)
             matrix_temp = matrix.reflection(O)
             matrix_result = matrix_result.multiply(matrix_temp)
             if (len(args) > (ac + 3)):
