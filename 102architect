@@ -16,10 +16,6 @@ class matrix:
         self.i = i
     
     def translation(i, j):
-        if round(i) == -0.00:
-            i = 0.00
-        if round(j) == -0.00:
-            j = 0.00
         print(f"Translation along vector ({i:.0f}, {j:.0f})")
         return matrix(1.00, 0.00, i, 0.00, 1.00, j, 0.00, 0.00, 1.00)
     
@@ -36,52 +32,41 @@ class matrix:
         return matrix(a, b, c, d, e, f, g, h, i)
     
     def print_matrix(self):
-        if (round(self.a) == -0.00):
+        if (self.a == -0.00):
             self.a = 0.00
-        if (round(self.b) == -0.00):
+        if (self.b == -0.00):
             self.b = 0.00
-        if (round(self.c) == -0.00):
+        if (self.c == -0.00):
             self.c = 0.00
-        if (round(self.d) == -0.00):
+        if (self.d == -0.00):
             self.d = 0.00
-        if (round(self.e) == -0.00):
+        if (self.e == -0.00):
             self.e = 0.00
-        if (round(self.f) == -0.00):
+        if (self.f == -0.00):
             self.f = 0.00
-        if (round(self.g) == -0.00):
+        if (self.g == -0.00):
             self.g = 0.00
-        if (round(self.h) == -0.00):
+        if (self.h == -0.00):
             self.h = 0.00
-        if (round(self.i) == -0.00):
+        if (self.i == -0.00):
             self.i = 0.00
         print(f"{self.a:.2f}\t{self.b:.2f}\t{self.c:.2f}")
         print(f"{self.d:.2f}\t{self.e:.2f}\t{self.f:.2f}")
         print(f"{self.g:.2f}\t{self.h:.2f}\t{self.i:.2f}")
     
     def scalar(m, n):
-        if round(m) == -0.00:
-            m = 0.00
-        if round(n) == -0.00:
-            n = 0.00
         print(f"Scaling by factors {m:.0f} and {n:.0f}")
         return matrix(m, 0.00, 0.00, 0.00, n, 0.00, 0.00, 0.00, 1.00)
     
     def rotation(O):
-        if round(O) == -0.00:
-            O = 0.00
         print(f"Rotation by a {O:.0f} degree angle")
         O = radians(O)
-        if (round(sin(O) != 0.00)):
-            return matrix(cos(O), -sin(O), 0.00, sin(O), cos(O), 0.00, 0.00, 0.00, 1.00)
-        else:
-            return matrix(cos(O), sin(O), 0.00, sin(O), cos(O), 0.00, 0.00, 0.00, 1.00)
+        return matrix(cos(O), -sin(O), 0.00, sin(O), cos(O), 0.00, 0.00, 0.00, 1.00)
     
     def reflection(O):
-        if round(O) == -0.00:
-            O = 0.00
         print(f"Reflection over an axis with an inclination angle of {O:.0f} degrees")
         O = radians(O)
-        return matrix(cos(2*O), 0.00, 0.00, 0.00, -cos(2*O), 0.00, 0.00, 0.00, 1.00)
+        return matrix(cos(2*O), sin(2*O), 0.00, sin(2*O), -cos(2*O), 0.00, 0.00, 0.00, 1.00)
 
 class vector:
     def __init__(self, x, y, z):
@@ -108,9 +93,6 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 j = float(args[4])
             except ValueError:
                 sys.exit(84)
-            if (round(x0) == -0.00 and round(y0) == -0.00):
-                x0 = 0.00
-                y0 = 0.00
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.translation(i, j)
             if (len(args) > (ac + 4)):
@@ -148,9 +130,6 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 n = float(args[4])
             except ValueError:
                 sys.exit(84)
-            if (round(x0) == -0.00 and round(y0) == -0.00):
-                x0 = 0.00
-                y0 = 0.00
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.scalar(m, n)
             if (len(args) > (ac + 4)):
@@ -187,9 +166,6 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 O = float(args[3])
             except ValueError:
                 sys.exit(84)
-            if (round(x0) == -0.00 and round(y0) == -0.00):
-                x0 = 0.00
-                y0 = 0.00
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.rotation(O)
             if (len(args) > (ac + 3)):
@@ -225,9 +201,6 @@ def recursive(args, ac, vector_init, vector_result, matrix_result):
                 O = float(args[3])
             except ValueError:
                 sys.exit(84)
-            if (round(x0) == -0.00 and round(y0) == -0.00):
-                x0 = 0.00
-                y0 = 0.00
             vector_init = vector(x0, y0, 1.00)
             matrix_result = matrix.reflection(O)
             if (len(args) > (ac + 3)):
