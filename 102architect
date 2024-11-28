@@ -48,7 +48,14 @@ class matrix:
     def reflection(O):
         print(f"Reflection over an axis with an inclination angle of {O:.0f} degrees")
         O = radians(O)
-        return matrix(cos(2*O), sin(2*O), 0.00, sin(2*O), -cos(2*O), 0.00, 0.00, 0.00, 1.00)
+        if round(cos(2*O)) != 0.00 and round(cos(2*O)) != -0.00 and round(sin(2*O)) != -0.00:
+            return matrix(cos(2*O), sin(2*O), 0.00, sin(2*O), -cos(2*O), 0.00, 0.00, 0.00, 1.00)
+        if round(cos(2*O)) == 0.00 and round(sin(2*O)) != -0.00:
+            return matrix(cos(2*O), sin(2*O), 0.00, sin(2*O), cos(2*O), 0.00, 0.00, 0.00, 1.00)
+        if round(cos(2*O)) == -0.00 and round(sin(2*O)) != -0.00:
+            return matrix(0.00, sin(2*O), 0.00, sin(2*O), 0.00, 0.00, 0.00, 0.00, 1.00)
+        if round(cos(2*O)) != 0.00 and round(cos(2*O)) != -0.00 and round(sin(2*O)) == -0.00:
+            return matrix(cos(2*O), 0.00, 0.00, 0.00, -cos(2*O), 0.00, 0.00, 0.00, 1.00)
 
 class vector:
     def __init__(self, x, y, z):
@@ -225,7 +232,7 @@ def main(args) :
             sys.exit(84)
         sys.exit(0)
 
-if __name__ == "__main__" and (len(sys.argv[1:]) <= 12 and len(sys.argv[1:]) >= 4) or len(sys.argv[1:]) == 1:
+if __name__ == "__main__":
     main(sys.argv[1:])
 else:
     print("Bad arguments")
