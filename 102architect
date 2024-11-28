@@ -32,23 +32,23 @@ class matrix:
         return matrix(a, b, c, d, e, f, g, h, i)
     
     def print_matrix(self):
-        if (self.a == -0.00):
+        if (round(self.a, 2) == -0.00):
             self.a = 0.00
-        if (self.b == -0.00):
+        if (round(self.b, 2) == -0.00):
             self.b = 0.00
-        if (self.c == -0.00):
+        if (round(self.c, 2) == -0.00):
             self.c = 0.00
-        if (self.d == -0.00):
+        if (round(self.d, 2) == -0.00):
             self.d = 0.00
-        if (self.e == -0.00):
+        if (round(self.e, 2) == -0.00):
             self.e = 0.00
-        if (self.f == -0.00):
+        if (round(self.f, 2) == -0.00):
             self.f = 0.00
-        if (self.g == -0.00):
+        if (round(self.g, 2) == -0.00):
             self.g = 0.00
-        if (self.h == -0.00):
+        if (round(self.h, 2) == -0.00):
             self.h = 0.00
-        if (self.i == -0.00):
+        if (round(self.i, 2) == -0.00):
             self.i = 0.00
         print(f"{self.a:.2f}\t{self.b:.2f}\t{self.c:.2f}")
         print(f"{self.d:.2f}\t{self.e:.2f}\t{self.f:.2f}")
