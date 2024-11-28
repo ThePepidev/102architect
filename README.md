@@ -48,33 +48,33 @@ Compile the program using the provided Makefile:
 
 **Translation**
 
-./102architect 5 0 -t -1 1
+    ./102architect 5 0 -t -1 1
 
-Result: (5.00, 0.00) => (4.00, 1.00)
+    Result: (5.00, 0.00) => (4.00, 1.00)
 
 **Scaling**
 
-./102architect 2 2 -z -1 1
+    ./102architect 2 2 -z -1 1
 
-Result: (2.00, 2.00) => (-2.00, 2.00)
+    Result: (2.00, 2.00) => (-2.00, 2.00)
 
 **Rotation**
 
-./102architect 1 0 -r 90
+    ./102architect 1 0 -r 90
 
-Result: (1.00, 0.00) => (0.00, 1.00)
+    Result: (1.00, 0.00) => (0.00, 1.00)
 
 **Reflection**
 
-./102architect 3 -1 -s 270
+    ./102architect 3 -1 -s 270
 
-Result: (3.00, -1.00) => (-3.00, -1.00)
+    Result: (3.00, -1.00) => (-3.00, -1.00)
 
 **Combination**
 
-./102architect 1 2 -t 2 3 -z 1 -2 -r 45 -s 30
+    ./102architect 1 2 -t 2 3 -z 1 -2 -r 45 -s 30
 
-Result: (1.00, 2.00) => (0.31, 10.44)
+    Result: (1.00, 2.00) => (0.31, 10.44)
 
 # Error Handling
 
