@@ -14,6 +14,49 @@ class matrix:
         self.g = g
         self.h = h
         self.i = i
+    
+    def translation(vector_init, vector_result, i, j):
+        print(f"Translation along vector ({i:.0f}, {j:.0f})")
+        vector_result.x = vector_init.x + i
+        vector_result.y = vector_init.y + j
+        return matrix(1.00, 0.00, i, 0.00, 1.00, j, 0.00, 0.00, 1.00)
+    
+    def multiply(self, matrix_3):
+        a = matrix_3.a * self.a + matrix_3.b * self.d + matrix_3.c * self.g
+        b = matrix_3.a * self.b + matrix_3.b * self.e +  matrix_3.c * self.h
+        c = matrix_3.a * self.c + matrix_3.b * self.f + matrix_3.c * self.i
+        d = matrix_3.d * self.a + matrix_3.e * self.d + matrix_3.f * self.g
+        e = matrix_3.d * self.b + matrix_3.e * self.e +  matrix_3.f * self.h
+        f = matrix_3.d * self.c + matrix_3.e * self.f + matrix_3.f * self.i
+        g = matrix_3.g * self.a + matrix_3.h * self.d + matrix_3.i * self.g
+        h = matrix_3.g * self.b + matrix_3.h * self.e +  matrix_3.i * self.h
+        i = matrix_3.g * self.c + matrix_3.h * self.f + matrix_3.i * self.i
+        return matrix(a, b, c, d, e, f, g, h, i)
+    
+    def print_matrix(self):
+        print(f"{self.a:.2f}\t{self.b:.2f}\t{self.c:.2f}")
+        print(f"{self.d:.2f}\t{self.e:.2f}\t{self.f:.2f}")
+        print(f"{self.g:.2f}\t{self.h:.2f}\t{self.i:.2f}")
+    
+    def scalar(vector_init, vector_result, m, n):
+        print(f"Scaling by factors {m:.0f} and {n:.0f}")
+        vector_result.x = vector_init.x * m
+        vector_result.y = vector_init.y * n
+        return matrix(m, 0.00, 0.00, 0.00, n, 0.00, 0.00, 0.00, 1.00)
+    
+    def rotation(vector_init, vector_result, O):
+        print(f"Rotation by a {O:.0f} degree angle")
+        O = radians(O)
+        vector_result.x = vector_init.x * cos(O) + -sin(O) * vector_init.y
+        vector_result.y = vector_init.x * sin(O) + vector_init.y * cos(O)
+        return matrix(cos(O), -sin(O), 0.00, sin(O), cos(O), 0.00, 0.00, 0.00, 1.00)
+    
+    def reflection(vector_init, vector_result, O):
+        print(f"Reflection over an axis with an inclination angle of {O:.0f} degrees")
+        O = radians(O)
+        vector_result.x = vector_init.x * cos(2*O) + sin(2*O) * vector_init.y
+        vector_result.y = vector_init.x * sin(2*O) + vector_init.y * -cos(2*O)
+        return matrix(cos(2*O), sin(2*O), 0.00, sin(2*O), -cos(2*O), 0.00, 0.00, 0.00, 1.00)
 
 class vector:
     def __init__(self, x, y, z):
@@ -27,16 +70,132 @@ class vector:
         z = matrix.g * self.x + matrix.h * self.y + matrix.i * self.z
         return vector(x, y, z)
 
-def print_vector(vector):
-    print(f"({vector.x:.2f}, {vector.y:.2f}, {vector.z:.2f})")
+def print_vector(vector_init, vector_result):
+    print(f"({vector_init.x:.2f}, {vector_init.y:.2f}) => ({vector_result.x:.2f}, {vector_result.y:.2f})")
 
-def recursive(args, ac):
+def recursive(args, ac, vector_init, vector_result, matrix_result):
     if args[ac] == "-t" :
-        return 0
+        if (ac == 2):
+            try:
+                x0 = float(args[0])
+                y0 = float(args[1])
+                i = float(args[3])
+                j = float(args[4])
+            except ValueError:
+                return 84
+            vector_init = vector(x0, y0, 1.00)
+            matrix_result = matrix.translation(vector_init, vector_result, i, j)
+            if (len(args) > (ac + 4)):
+                recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
+        else:
+            try:
+                i = float(args[ac + 1])
+                j = float(args[ac + 2])
+            except ValueError:
+                return 84
+            matrix_temp = matrix.translation(vector_init, vector_result, i, j)
+            matrix_result = matrix_temp.multiply(matrix_result)
+            if (len(args) > (ac + 4)):
+                recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
+    elif args[ac] == "-z" :
+        if (ac == 2):
+            try:
+                x0 = float(args[0])
+                y0 = float(args[1])
+                m = float(args[3])
+                n = float(args[4])
+            except ValueError:
+                return 84
+            vector_init = vector(x0, y0, 1.00)
+            matrix_result = matrix.scalar(vector_init, vector_result, m, n)
+            if (len(args) > (ac + 4)):
+                recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
+        else:
+            try:
+                m = float(args[ac + 1])
+                n = float(args[ac + 2])
+            except ValueError:
+                return 84
+            matrix_temp = matrix.scalar(vector_init, vector_result, m, n)
+            matrix_result = matrix_temp.multiply(matrix_result)
+            if (len(args) > (ac + 4)):
+                recursive(args, (ac + 3), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
     elif args[ac] == "-r" :
-        return 0
+        if (ac == 2):
+            try:
+                x0 = float(args[0])
+                y0 = float(args[1])
+                O = float(args[3])
+            except ValueError:
+                return 84
+            vector_init = vector(x0, y0, 1.00)
+            matrix_result = matrix.rotation(vector_init, vector_result, O)
+            if (len(args) > (ac + 3)):
+                recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
+        else:
+            try:
+                O = float(args[ac + 1])
+            except ValueError:
+                return 84
+            matrix_temp = matrix.rotation(vector_init, vector_result, O)
+            matrix_result = matrix_temp.multiply(matrix_result)
+            if (len(args) > (ac + 3)):
+                recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
     elif args[ac] == "-s" :
-        return 0
+        if (ac == 2):
+            try:
+                x0 = float(args[0])
+                y0 = float(args[1])
+                O = float(args[3])
+            except ValueError:
+                return 84
+            vector_init = vector(x0, y0, 1.00)
+            matrix_result = matrix.reflection(vector_init, vector_result, O)
+            if (len(args) > (ac + 3)):
+                recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
+        else:
+            try:
+                O = float(args[ac + 1])
+            except ValueError:
+                return 84
+            matrix_temp = matrix.reflection(vector_init, vector_result, O)
+            matrix_result = matrix_temp.multiply(matrix_result)
+            if (len(args) > (ac + 3)):
+                recursive(args, (ac + 2), vector_init, vector_result, matrix_result)
+            else:
+                matrix_result.print_matrix()
+                print_vector(vector_init, vector_result)
+                sys.exit(0)
+    else:
+        return 84
 
 def main(args) :
     if args[0] == '-h':
@@ -54,8 +213,13 @@ def main(args) :
         print("            angle of d degrees")
         sys.exit(0)
     else:
-        ac = 3
-        if recursive(args, ac) == 84:
+        ac = 2
+        if args[ac] == '-t' or args[ac] == '-r' or args[ac] == '-s' or args[ac] == '-z':
+            if recursive(args, ac, vector_init=vector(0, 0, 0), vector_result=vector(0, 0, 0), matrix_result=matrix(1, 0, 0, 0, 1, 0, 0, 0, 1)) == 84:
+                print("Bad arguments")
+                print("Try : './102architect -h' for help")
+                sys.exit(84)
+        else:
             print("Bad arguments")
             print("Try : './102architect -h' for help")
             sys.exit(84)
