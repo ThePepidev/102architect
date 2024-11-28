@@ -1,0 +1,26 @@
+##
+## EPITECH PROJECT, 2024
+## B-MAT-100-LIL-1-1-102architect-enzo.senechal
+## File description:
+## main.py
+##
+
+#!/usr/bin/env python3
+
+import sys
+from math import *
+
+def main(args) :
+    if args[3] == "-t" :
+        if len(sys.argv[1:]) != 5 :
+            sys.exit(84)
+    elif args[3] == "-r" :
+        if len(sys.argv[1:]) != 4 :
+            sys.exit(84)
+    elif args[3] == "-s" :
+        if len(sys.argv[1:]) != 4 :
+            sys.exit(84)
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
