@@ -1,26 +1,69 @@
-##
-## EPITECH PROJECT, 2024
-## B-MAT-100-LIL-1-1-102architect-enzo.senechal
-## File description:
-## main.py
-##
-
 #!/usr/bin/env python3
 
 import sys
 from math import *
 
-def main(args) :
-    if args[3] == "-t" :
-        if len(sys.argv[1:]) != 5 :
-            sys.exit(84)
-    elif args[3] == "-r" :
-        if len(sys.argv[1:]) != 4 :
-            sys.exit(84)
-    elif args[3] == "-s" :
-        if len(sys.argv[1:]) != 4 :
-            sys.exit(84)
-    sys.exit(0)
+class matrix:
+    def __init__(self, a, b, c, d, e, f, g, h, i):
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = d
+        self.e = e
+        self.f = f
+        self.g = g
+        self.h = h
+        self.i = i
 
-if __name__ == "__main__":
+class vector:
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def multiply(self, matrix):
+        x = matrix.a * self.x + matrix.b * self.y + matrix.c * self.z
+        y = matrix.d * self.x + matrix.e * self.y + matrix.f * self.z
+        z = matrix.g * self.x + matrix.h * self.y + matrix.i * self.z
+        return vector(x, y, z)
+
+def print_vector(vector):
+    print(f"({vector.x:.2f}, {vector.y:.2f}, {vector.z:.2f})")
+
+def recursive(args, ac):
+    if args[ac] == "-t" :
+        return 0
+    elif args[ac] == "-r" :
+        return 0
+    elif args[ac] == "-s" :
+        return 0
+
+def main(args) :
+    if args[0] == '-h':
+        print("USAGE")
+        print("    ./102architect x y transfo1 arg11 [arg12] [transfo2 arg21 [arg22]] ...")
+        print("\n\n")
+        print("DESCRIPTION")
+        print("    x   abscissa of the original point")
+        print("    y   ordinate of the original point")
+        print("    transfo arg1 [arg2]")
+        print("    -t i j  translation along vector (i, j)")
+        print("    -z m n  scaling by factors m (x-axis) and n (y-axis)")
+        print("    -r d    rotation centered in O by a d degree angle")
+        print("    -s d    reflection over the axis passing through O with an inclination")
+        print("            angle of d degrees")
+        sys.exit(0)
+    else:
+        ac = 3
+        if recursive(args, ac) == 84:
+            print("Bad arguments")
+            print("Try : './102architect -h' for help")
+            sys.exit(84)
+        sys.exit(0)
+
+if __name__ == "__main__" and (len(sys.argv[1:]) <= 12 and len(sys.argv[1:]) >= 4) or len(sys.argv[1:]) == 1:
     main(sys.argv[1:])
+else:
+    print("Bad arguments")
+    print("Try : './102architect -h' for help")
+    sys.exit(84)
