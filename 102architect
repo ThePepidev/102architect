@@ -246,7 +246,7 @@ def main(args) :
         print("    -s d    reflection over the axis passing through O with an inclination")
         print("            angle of d degrees")
         sys.exit(0)
-    elif len(args) != 1:
+    elif len(args) > 3:
         ac = 2
         if args[ac] == '-t' or args[ac] == '-r' or args[ac] == '-s' or args[ac] == '-z':
             if recursive(args, ac, vector_init=vector(0, 0, 0), vector_result=vector(0, 0, 0), matrix_result=matrix(1, 0, 0, 0, 1, 0, 0, 0, 1)) == 84:
